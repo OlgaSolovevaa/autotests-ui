@@ -10,7 +10,7 @@ def test_empty_courses_list(courses_list_page: CoursesListPage) -> None:
     courses_list_page.visit("https://nikita-filonov.github.io/qa-automation-engineer-ui-course/#/courses")
     courses_list_page.navbar.check_visible("username")
     courses_list_page.sidebar.check_visible()
-    courses_list_page.toolbar_view.check_visible()
+    courses_list_page.toolbar_view.check_visible(title="Courses")
     courses_list_page.check_visible_empty_view()
 
 
@@ -18,7 +18,7 @@ def test_empty_courses_list(courses_list_page: CoursesListPage) -> None:
 @pytest.mark.regression
 def test_create_course(create_course_page: CreateCoursePage, courses_list_page: CoursesListPage) -> None:
     create_course_page.visit("https://nikita-filonov.github.io/qa-automation-engineer-ui-course/#/courses/create")
-    create_course_page.create_course_toolbar_view.check_visible()
+    create_course_page.create_course_toolbar_view.check_visible(title="Create course")
     create_course_page.image_upload_widget.check_visible(is_image_uploaded=False)
     create_course_page.create_course_form.check_visible(title="",
                                                         description="",
@@ -26,7 +26,7 @@ def test_create_course(create_course_page: CreateCoursePage, courses_list_page: 
                                                         max_score="0",
                                                         min_score="0")
 
-    create_course_page.create_exercises_toolbar_view.check_visible()
+    create_course_page.create_exercises_toolbar_view.check_visible(title="Exercises")
     create_course_page.check_visible_exercises_empty_view()
 
     create_course_page.image_upload_widget.upload_preview_image("./testdata/files/image.png")
@@ -36,9 +36,9 @@ def test_create_course(create_course_page: CreateCoursePage, courses_list_page: 
                                                description="Playwright",
                                                max_score="100",
                                                min_score="10")
-    create_course_page.create_course_toolbar_view.click_create_course_button()
+    create_course_page.create_course_toolbar_view.click_create_course(index=0)
 
-    courses_list_page.toolbar_view.check_visible()
+    courses_list_page.toolbar_view.check_visible(title="Courses")
     courses_list_page.course_view.check_visible(index=0,
                                                 title="Playwright",
                                                 max_score="100",
